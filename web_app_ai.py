@@ -372,23 +372,8 @@ def show_keyword_feedback(feedback: list):
 
 def render_ai_section(q_num: int, answer_str: str, btn_key: str):
     ctx = QUESTION_CONTEXTS[q_num]
-    issues = st.session_state.get(f"issues_{btn_key}", [])
-
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("🤖 Claude AI 심층 피드백", key=btn_key, use_container_width=True,
-                     help="교과서 지문에만 근거한 맞춤 피드백"):
-            with st.spinner("지문을 바탕으로 답안 분석 중..."):
-                result = get_ai_feedback(q_num, answer_str, issues)
-            st.session_state[f"ai_result_{btn_key}"] = result
-
-    if f"ai_result_{btn_key}" in st.session_state:
-        st.markdown("#### 🤖 AI 심층 피드백")
-        st.info(st.session_state[f"ai_result_{btn_key}"])
-
-    with col2:
-        with st.expander("📖 모범 답안 보기"):
-            st.markdown(ctx["model_answer"])
+    with st.expander("📖 모범 답안 보기"):
+        st.markdown(ctx["model_answer"])
 
 
 # =====================================================================
@@ -397,27 +382,13 @@ def render_ai_section(q_num: int, answer_str: str, btn_key: str):
 st.set_page_config(page_title="서·논술형 자동 피드백", page_icon="📝", layout="centered")
 
 with st.sidebar:
-    st.header("⚙️ 설정")
-    api_input = st.text_input("Anthropic API 키", type="password", placeholder="sk-ant-api...")
-    if api_input:
-        st.session_state["api_key"] = api_input
-        st.success("✅ API 키 설정됨")
-    elif os.environ.get("ANTHROPIC_API_KEY"):
-        st.success("✅ 환경변수에서 감지됨")
-    else:
-        st.warning("API 키를 입력해야 AI 피드백을 사용할 수 있습니다.")
-    st.divider()
-    st.markdown("""**📌 피드백 2단계**
-1. **제출** → 조건 키워드 자동 채점
-2. **AI 피드백** → 교과서 지문 근거 심층 분석""")
-    st.divider()
-    st.markdown("""**📚 지문 출처**
-- 문제 1·2·3: 「도서관에서 공부하면 집중이 잘되는 까닭」(조영은, pp.129-131)
+    st.header("📚 지문 출처")
+    st.markdown("""- 문제 1·2·3: 「도서관에서 공부하면 집중이 잘되는 까닭」(조영은, pp.129-131)
 - 문제 4·5: 「콘서트 티켓이 비싼 까닭」(김영옥, pp.124-125)
 - 문제 6·7: 독서 점검·조정 + 콘서트 지문""")
 
 st.title("📝 서·논술형 자동 피드백 도우미")
-st.caption("1단계 키워드 채점 → 2단계 Claude AI 지문 근거 심층 피드백")
+st.caption("답안을 입력하고 제출하면 조건 충족 여부를 확인해드립니다.")
 
 if 'solved' not in st.session_state:
     st.session_state.solved = set()
