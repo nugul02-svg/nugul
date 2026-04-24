@@ -536,8 +536,21 @@ st.progress(solved_count / 7, text=f"✅ 완료된 문제: {solved_count} / 7")
 
 col_info, col_reset = st.columns([4, 1])
 with col_info:
-    st.caption("1~7번 문제를 모두 제출하면 마지막 탭 '복습할 내용'에서 틀린 개념을 확인할 수 있어요. 답안을 초기화하고 처음부터 다시 풀고 싶다면 →")
+    st.caption("1~7번 문제를 모두 제출하면 마지막 탭 '복습할 내용'에서 틀린 개념을 확인할 수 있어요. 답안을 초기화하고 처음부터 다시 풀고 싶다면 다음의 버튼을 누르세요.")
 with col_reset:
+    st.markdown("""<style>
+[data-testid="column"]:last-child .stButton > button {
+    background-color: #1976D2;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 2px 8px;
+    white-space: nowrap;
+    height: auto;
+}
+</style>""", unsafe_allow_html=True)
     if st.button("🔄 처음부터 다시 풀기", use_container_width=True):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
