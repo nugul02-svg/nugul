@@ -383,15 +383,20 @@ def render_ai_section(q_num: int, answer_str: str, btn_key: str):
 # =====================================================================
 # 페이지 설정 및 메인
 # =====================================================================
-st.set_page_config(page_title="서·논술형 자동 피드백", page_icon="📝", layout="centered")
+st.set_page_config(page_title="국어 서논술형 답쓰기 연습", page_icon="📝", layout="centered")
+st.markdown("""
+<style>
+h1 a, h2 a, h3 a { display: none; }
+</style>
+""", unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("📚 지문 출처")
     st.markdown("""- 문제 1·2·3: 「도서관에서 공부하면 집중이 잘되는 까닭」(조영은, pp.129-131)
 - 문제 4·5·6·7: 「콘서트 티켓이 비싼 까닭」(김영옥, pp.124-125)""")
 
-st.title("📝 서·논술형 자동 피드백 도우미")
-st.caption("답안을 입력하고 제출하면 조건 충족 여부를 확인해드립니다.")
+st.title("📝 국어 서논술형 답쓰기 연습")
+st.caption("여러분의 복습을 위해 제공되는 자료이므로 프로그램이 제공하는 결과는 참고로만 삼으세요. 궁금한 점은 김영희 선생님께 찾아와 여쭙기 😉")
 
 if 'solved' not in st.session_state:
     st.session_state.solved = set()
