@@ -483,15 +483,16 @@ a[href^="#"] { display: none !important; }
     font-weight: 600;
     padding: 6px 24px;
 }
-/* 다시 풀기 버튼 — 작고 은은하게 */
+/* 다시 풀기 버튼 — 작고 파랗게 */
 [data-testid="column"]:last-child .stButton > button {
-    background-color: #f0f2f6;
-    color: #555;
-    border: 1px solid #ddd;
+    background-color: #1976D2;
+    color: white;
+    border: none;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 4px 12px;
+    padding: 4px 14px;
+    white-space: nowrap;
 }
 /* 진행바 */
 .stProgress > div > div { border-radius: 10px; }
@@ -533,9 +534,9 @@ if 'solved' not in st.session_state:
 solved_count = len(st.session_state.solved)
 st.progress(solved_count / 7, text=f"✅ 완료된 문제: {solved_count} / 7")
 
-col_empty, col_reset = st.columns([5, 1])
+col_empty, col_reset = st.columns([4, 1])
 with col_reset:
-    if st.button("🔄 다시 풀기", use_container_width=True):
+    if st.button("🔄 처음부터 다시 풀기", use_container_width=True):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
